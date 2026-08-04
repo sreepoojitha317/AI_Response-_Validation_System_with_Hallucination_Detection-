@@ -4,427 +4,262 @@
 <head>
 
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>AI Response Evaluator</title>
 
-
-    <!-- CSS -->
     <link rel="stylesheet" href="/static/css/style.css">
 
-
-    <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 
 </head>
 
-
 <body>
-
 
 <div class="page-container">
 
-
-    <!-- ================= HEADER ================= -->
-
+    <!-- HEADER -->
 
     <header class="header">
 
-
-        <h1>
-            AI Response Evaluator
-        </h1>
-
+        <h1>🤖 AI Response Evaluator</h1>
 
         <p>
-            Evaluate AI-generated responses using intelligent quality analysis.
+            Evaluate AI-generated responses using intelligent quality analysis powered by multiple AI Judge Agents.
         </p>
-
 
     </header>
 
 
-
-
-
-    <!-- ================= MAIN CONTENT ================= -->
-
+    <!-- MAIN LAYOUT -->
 
     <div class="main-layout">
 
-
-
-        <!-- LEFT INPUT PANEL -->
-
+        <!-- LEFT PANEL -->
 
         <section class="input-card">
 
+            <h2>Response Evaluation</h2>
 
-            <h2>
-                Response Input
-            </h2>
-
-
-
-
-
-            <!-- QUESTION -->
-
+            <!-- Question -->
 
             <div class="form-group">
 
+                <label>Question</label>
 
-                <label>
-                    Question
-                </label>
-
-
-                <textarea 
-                id="question"
-                placeholder="Enter your question here..."
-                rows="4"></textarea>
-
+                <textarea
+                    id="question"
+                    rows="4"
+                    placeholder="Enter your question here..."></textarea>
 
             </div>
 
-
-
-
-
-
-
-
-            <!-- RESPONSE TYPE -->
-
+            <!-- Response Type -->
 
             <div class="form-group">
 
-
-                <label>
-                    Response Type
-                </label>
-
-
+                <label>Response Type</label>
 
                 <div class="response-types">
 
-
-
                     <label class="option-card">
-
-
-                        <input 
-                        type="radio"
-                        name="type"
-                        value="text"
-                        checked>
-
-
-                        <span>
-                            📝 Text
-                        </span>
-
-
+                        <input type="radio" name="type" value="text" checked>
+                        <span>📝 Text</span>
                     </label>
 
-
-
-
-
-
                     <label class="option-card">
-
-
-                        <input 
-                        type="radio"
-                        name="type"
-                        value="pdf">
-
-
-                        <span>
-                            📄 PDF
-                        </span>
-
-
+                        <input type="radio" name="type" value="pdf">
+                        <span>📄 PDF</span>
                     </label>
 
-
-
-
-
-
-
                     <label class="option-card">
-
-
-                        <input 
-                        type="radio"
-                        name="type"
-                        value="voice">
-
-
-                        <span>
-                            🎤 Voice
-                        </span>
-
-
+                        <input type="radio" name="type" value="voice">
+                        <span>🎤 Voice</span>
                     </label>
-
-
 
                 </div>
 
-
-
             </div>
 
-
-
-
-
-
-
-
-            <!-- TEXT RESPONSE -->
-
+            <!-- TEXT -->
 
             <div id="text-section" class="response-section">
 
-
-                <label>
-                    AI Generated Response
-                </label>
-
+                <label>AI Generated Response</label>
 
                 <textarea
-                id="text-response"
-                rows="6"
-                placeholder="Paste AI generated response..."></textarea>
-
-
+                    id="text-response"
+                    rows="6"
+                    placeholder="Paste the AI generated response here..."></textarea>
 
             </div>
 
-
-
-
-
-
-
-            <!-- PDF RESPONSE -->
-
+            <!-- PDF -->
 
             <div id="pdf-section" class="response-section hidden">
 
-
-                <label>
-                    Upload Response PDF
-                </label>
-
-
+                <label>Upload PDF Response</label>
 
                 <div class="upload-area">
 
+                    <div class="upload-icon">📄</div>
 
-                    <div class="upload-icon">
-                        📄
-                    </div>
+                    <p>Drag & Drop PDF</p>
 
+                    <span>or click to browse</span>
 
-                    <p>
-                        Drag & Drop PDF file
-                    </p>
-
-
-                    <span>
-                        or click to browse
-                    </span>
-
-
-
-                    <input 
-                    type="file"
-                    id="pdf-file"
-                    accept=".pdf">
-
-
+                    <input type="file"
+                           id="pdf-file"
+                           accept=".pdf">
 
                 </div>
 
-
-
             </div>
 
-
-
-
-
-
-
-
-            <!-- VOICE RESPONSE -->
-
+            <!-- VOICE -->
 
             <div id="voice-section" class="response-section hidden">
 
-
-                <label>
-                    Voice Response
-                </label>
-
-
+                <label>Voice Response</label>
 
                 <div class="voice-box">
 
+                    <button id="mic-button">🎤</button>
 
-                    <button id="mic-button">
-
-                        🎤
-
-                    </button>
-
-
-                    <h3>
-                        Start Recording
-                    </h3>
-
+                    <h3>Start Recording</h3>
 
                     <p id="voice-status">
 
-                        Click microphone and speak
+                        Click the microphone and start speaking
 
                     </p>
 
-
-
                 </div>
 
-
-
             </div>
-
-
-
-
-
-
-
 
             <!-- REFERENCE -->
 
-
             <div class="form-group">
 
-
-                <label>
-                    Reference Answer (Optional)
-                </label>
-
+                <label>Reference Answer (Optional)</label>
 
                 <textarea
-                id="reference"
-                rows="4"
-                placeholder="Enter reference answer or source information..."></textarea>
-
-
+                    id="reference"
+                    rows="4"
+                    placeholder="Enter the reference answer or supporting information..."></textarea>
 
             </div>
 
+            <!-- EVALUATE -->
 
+            <button
+                id="evaluate-button"
+                class="evaluate-btn">
 
-
-
-
-
-            <!-- BUTTON -->
-
-
-            <button 
-            id="evaluate-button"
-            class="evaluate-btn">
-
-
-                Evaluate Response
-
+                🚀 Evaluate Response
 
             </button>
 
+            <!-- BATCH EVALUATION -->
 
+            <hr style="margin:45px 0;border:none;border-top:1px solid rgba(255,255,255,.18);">
 
+            <h2>Batch Evaluation</h2>
 
+            <div class="upload-area">
 
-        </section>
+                <div class="upload-icon">📄</div>
 
+                <p>Upload CSV File</p>
 
+                <span>Select a CSV containing Question-Answer pairs</span>
 
-
-
-
-        <!-- RIGHT INFORMATION PANEL -->
-
-
-        <section class="info-card">
-
-
-            <div class="info-content">
-
-
-                <div class="icon">
-
-                    🤖
-
-                </div>
-
-
-
-                <h2>
-                    AI Evaluation Workspace
-                </h2>
-
-
-                <p>
-
-                    Submit your question and AI-generated response.
-                    Evaluation results will be generated here after processing.
-
-                </p>
-
-
-
-                <div class="future-box">
-
-
-                    
-
-                </div>
-
+                <input
+                    type="file"
+                    id="batch-file"
+                    accept=".csv">
 
             </div>
 
+            <br>
 
+            <button
+                id="batch-btn"
+                class="evaluate-btn">
+
+                📊 Evaluate CSV
+
+            </button>
 
         </section>
 
 
+        <!-- RIGHT PANEL -->
+
+        <section class="info-card">
+
+            <div class="info-content">
+
+                <h2>AI Evaluation Workspace</h2>
+
+                <p>
+
+                    This system evaluates AI-generated responses using four independent Judge Agents.
+
+                </p>
+
+                <div class="future-box">
+
+                    <div style="font-size:34px;margin-bottom:12px;">
+                        🤖
+                    </div>
+
+                    <h3>Powered by Multi-Agent Evaluation</h3>
+
+                    <p style="margin-top:12px;line-height:1.8;">
+
+                        Our system evaluates every AI response using four independent AI Judge Agents to ensure reliable, explainable and trustworthy evaluation.
+
+                    </p>
+
+                    <div style="margin-top:20px;line-height:2;">
+
+                        ✅ Accuracy Judge <br>
+                        ✅ Relevance Judge <br>
+                        ✅ Hallucination Judge <br>
+                        ✅ Completeness Judge
+
+                    </div>
+
+                    <div style="margin-top:22px;">
+
+                        <span class="version-badge">
+
+                            Version 1.0
+
+                        </span>
+
+                    </div>
+
+                    <small>
+
+                        Developed by <strong>Sree Poojitha</strong>
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        </section>
 
     </div>
 
-
-
-
-
 </div>
-
-
-
-
 
 <script src="/static/js/script.js"></script>
 
-
 </body>
-
 
 </html>

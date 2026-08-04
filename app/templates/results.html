@@ -3,94 +3,2052 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-<title>Evaluation Results</title>
+    <title>
+        AI Response Evaluator - Results
+    </title>
 
+    <!-- CSS -->
 
-<link rel="stylesheet" href="/static/css/style.css">
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css">
 
+    <!-- Google Font -->
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
 </head>
 
-
 <body>
-
 
 <div class="page-container">
 
+<!-- =====================================================
+                    HEADER
+===================================================== -->
 
-    <header class="header">
+<header class="header">
 
-        <h1>
-            AI Response Evaluator
-        </h1>
+    <h1>
 
-        <p>
-            Evaluation Results
-        </p>
+        ✨ AI Response Evaluator ✨
 
-    </header>
+    </h1>
 
+    <p>
 
+        Multi-Agent AI Response Evaluation Dashboard
 
+    </p>
 
-
-    <section class="input-card result-page">
+</header>
 
 
-        <div class="result-icon">
 
-            ⏳
+<!-- =====================================================
+                BATCH DASHBOARD
+===================================================== -->
+
+<section
+    id="batch-dashboard"
+    class="result-dashboard"
+    style="display:none;">
+
+    <!-- ================= SUMMARY ================= -->
+
+    <div class="summary-dashboard-card">
+
+        <div class="section-title">
+
+            <span class="title-icon">
+
+                📊
+
+            </span>
+
+            <h2>
+
+                Batch Evaluation Summary
+
+            </h2>
+
+        </div>
+
+        <div class="overall-section">
+
+            <!-- Average -->
+
+            <div class="overall-score-box">
+
+                <h4>
+
+                    Average Score
+
+                </h4>
+
+                <div
+                    id="batch-average-score"
+                    class="overall-number">
+
+                    --
+
+                </div>
+
+                <div
+                    id="batch-verdict"
+                    class="verdict-badge">
+
+                    --
+
+                </div>
+
+            </div>
+
+            <!-- Progress -->
+
+            <div class="overall-progress-area">
+
+                <div class="progress-header">
+
+                    <span>
+
+                        Batch Performance
+
+                    </span>
+
+                    <strong
+                        id="batch-average-percent">
+
+                        0%
+
+                    </strong>
+
+                </div>
+
+                <div class="overall-progress-bar">
+
+                    <div
+                        id="batch-progress"
+                        class="overall-progress-fill">
+
+                    </div>
+
+                </div>
+
+                <p
+                    id="batch-summary-text">
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= STATS ================= -->
+
+    <div class="agents-section">
+
+        <h2 class="agent-heading">
+
+            📁 Batch Statistics
+
+        </h2>
+
+        <div class="agent-grid">
+
+            <!-- CSV -->
+
+            <div class="agent-card">
+
+                <div class="agent-header">
+
+                    <div class="agent-icon">
+
+                        📄
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+
+                            CSV File
+
+                        </h3>
+
+                        <p>
+
+                            Uploaded Dataset
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <h2 id="batch-file-name">
+
+                    --
+
+                </h2>
+
+            </div>
+
+            <!-- Total -->
+
+            <div class="agent-card">
+
+                <div class="agent-header">
+
+                    <div class="agent-icon">
+
+                        📚
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+
+                            Total Questions
+
+                        </h3>
+
+                        <p>
+
+                            Processed Records
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <h2 id="batch-total">
+
+                    --
+
+                </h2>
+
+            </div>
+
+            <!-- PASS -->
+
+            <div class="agent-card">
+
+                <div class="agent-header">
+
+                    <div class="agent-icon">
+
+                        ✅
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+
+                            PASS
+
+                        </h3>
+
+                        <p>
+
+                            Excellent Responses
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <h2 id="batch-pass">
+
+                    --
+
+                </h2>
+
+            </div>
+
+            <!-- Needs Improvement -->
+
+            <div class="agent-card">
+
+                <div class="agent-header">
+
+                    <div class="agent-icon">
+
+                        ⚠️
+
+                    </div>
+
+                    <div>
+
+                        <h3>
+
+                            Needs Improvement
+
+                        </h3>
+
+                        <p>
+
+                            Average Responses
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <h2 id="batch-needs">
+
+                    --
+
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+        <!-- ===================== RESULTS TABLE ===================== -->
+
+    <div class="detail-card">
+
+        <div class="detail-header">
+
+            <span>📋</span>
+
+            <h2>
+
+                Batch Evaluation Report
+
+            </h2>
+
+        </div>
+
+        <div class="table-container">
+
+            <table
+                id="batch-table"
+                class="batch-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>Question</th>
+
+                        <th>Accuracy</th>
+
+                        <th>Relevance</th>
+
+                        <th>Hallucination</th>
+
+                        <th>Completeness</th>
+
+                        <th>Overall</th>
+
+                        <th>Verdict</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="batch-table-body">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ===================== BUTTONS ===================== -->
+
+    <div
+        style="
+        display:flex;
+        justify-content:center;
+        gap:20px;
+        flex-wrap:wrap;">
+
+        <button
+            class="evaluate-btn"
+            onclick="downloadBatchCSV()">
+
+            ⬇ Download Evaluation Report
+
+        </button>
+
+        <button
+            class="evaluate-btn"
+            onclick="goHome()">
+
+            🔄 Evaluate Another CSV
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+                SINGLE RESULT DASHBOARD
+===================================================== -->
+
+<section
+    id="single-dashboard"
+    class="result-dashboard">
+
+
+
+
+<!-- =====================================================
+                OVERALL SUMMARY
+===================================================== -->
+
+<div class="summary-dashboard-card">
+
+    <div class="section-title">
+
+        <span class="title-icon">
+
+            📊
+
+        </span>
+
+        <h2>
+
+            Evaluation Summary
+
+        </h2>
+
+    </div>
+
+
+
+    <div class="overall-section">
+
+
+
+        <div class="overall-score-box">
+
+            <h4>
+
+                Overall Score
+
+            </h4>
+
+            <div
+                id="overall-score"
+                class="overall-number">
+
+                --
+
+            </div>
+
+            <div
+                id="verdict"
+                class="verdict-badge">
+
+                --
+
+            </div>
 
         </div>
 
 
 
+
+        <div class="overall-progress-area">
+
+            <div class="progress-header">
+
+                <span>
+
+                    AI Evaluation Score
+
+                </span>
+
+                <strong
+                    id="overall-percent">
+
+                    0%
+
+                </strong>
+
+            </div>
+
+            <div class="overall-progress-bar">
+
+                <div
+                    id="overall-progress"
+                    class="overall-progress-fill">
+
+                </div>
+
+            </div>
+
+            <p id="summary">
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<!-- =====================================================
+                AGENT SCORES
+===================================================== -->
+
+<div class="agents-section">
+
+<h2 class="agent-heading">
+
+👥 Judge Agent Scores
+
+</h2>
+
+<div class="agent-grid">
+
+
+
+<!-- ================= ACCURACY ================= -->
+
+<div class="agent-card">
+
+<div class="agent-header">
+
+<div class="agent-icon">
+
+🎯
+
+</div>
+
+<div>
+
+<h3>
+
+Accuracy Agent
+
+</h3>
+
+<p>
+
+Checks factual correctness
+
+</p>
+
+</div>
+
+</div>
+
+<div
+id="accuracy-ring"
+class="progress-ring">
+
+<div class="ring-content">
+
+<span
+id="accuracy-score">
+
+--
+
+</span>
+
+<small>
+
+Score
+
+</small>
+
+</div>
+
+</div>
+
+<div
+id="accuracy-status"
+class="agent-status">
+
+--
+
+</div>
+
+<p
+id="accuracy-reason"
+class="agent-reason">
+
+</p>
+
+</div>
+
+
+
+
+<!-- ================= RELEVANCE ================= -->
+
+<div class="agent-card">
+
+<div class="agent-header">
+
+<div class="agent-icon">
+
+🔗
+
+</div>
+
+<div>
+
+<h3>
+
+Relevance Agent
+
+</h3>
+
+<p>
+
+Checks contextual relevance
+
+</p>
+
+</div>
+
+</div>
+
+<div
+id="relevance-ring"
+class="progress-ring">
+
+<div class="ring-content">
+
+<span
+id="relevance-score">
+
+--
+
+</span>
+
+<small>
+
+Score
+
+</small>
+
+</div>
+
+</div>
+
+<div
+id="relevance-status"
+class="agent-status">
+
+--
+
+</div>
+
+<p
+id="relevance-reason"
+class="agent-reason">
+
+</p>
+
+</div>
+
+
+
+
+<!-- ================= HALLUCINATION ================= -->
+
+<div class="agent-card">
+
+<div class="agent-header">
+
+<div class="agent-icon">
+
+⚠️
+
+</div>
+
+<div>
+
+<h3>
+
+Hallucination Agent
+
+</h3>
+
+<p>
+
+Detects unsupported claims
+
+</p>
+
+</div>
+
+</div>
+
+<div
+id="hallucination-ring"
+class="progress-ring">
+
+<div class="ring-content">
+
+<span
+id="hallucination-score">
+
+--
+
+</span>
+
+<small>
+
+Score
+
+</small>
+
+</div>
+
+</div>
+
+<div
+id="hallucination-status"
+class="agent-status">
+
+--
+
+</div>
+
+<p
+id="hallucination-reason"
+class="agent-reason">
+
+</p>
+
+</div>
+
+
+
+
+<!-- ================= COMPLETENESS ================= -->
+
+<div class="agent-card">
+
+<div class="agent-header">
+
+<div class="agent-icon">
+
+📄
+
+</div>
+
+<div>
+
+<h3>
+
+Completeness Agent
+
+</h3>
+
+<p>
+
+Checks answer completeness
+
+</p>
+
+</div>
+
+</div>
+
+<div
+id="completeness-ring"
+class="progress-ring">
+
+<div class="ring-content">
+
+<span
+id="completeness-score">
+
+--
+
+</span>
+
+<small>
+
+Score
+
+</small>
+
+</div>
+
+</div>
+
+<div
+id="completeness-status"
+class="agent-status">
+
+--
+
+</div>
+
+<p
+id="completeness-reason"
+class="agent-reason">
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+<!-- =====================================================
+                DETAILED SUMMARY
+===================================================== -->
+
+
+<div class="detail-card">
+
+
+    <div class="detail-header">
+
+        <span>
+
+            📋
+
+        </span>
+
+
         <h2>
 
-            Evaluation In Progress
+            Detailed Evaluation Summary
 
         </h2>
 
 
+    </div>
+
+
+
+    <p
+        id="detail-summary">
+
+    </p>
+
+
+
+</div>
+
+
+
+
+
+<!-- =====================================================
+                NAVIGATION BUTTON
+===================================================== -->
+
+
+<button
+
+    class="evaluate-btn"
+
+    onclick="goHome()">
+
+
+    🔄 Evaluate Another Response
+
+
+</button>
+
+
+</section>
+
+</div>
+
+
+
+
+
+<!-- =====================================================
+                    JAVASCRIPT
+===================================================== -->
+
+
+<script>
+
+
+// =====================================================
+// LOAD STORED RESULTS
+// =====================================================
+
+
+const singleResult =
+JSON.parse(
+    sessionStorage.getItem(
+        "evaluation_result"
+    )
+);
+
+
+const batchResult =
+JSON.parse(
+    sessionStorage.getItem(
+        "batch_result"
+    )
+);
+
+
+
+const singleDashboard =
+document.getElementById(
+    "single-dashboard"
+);
+
+
+
+const batchDashboard =
+document.getElementById(
+    "batch-dashboard"
+);
+
+
+
+
+// =====================================================
+// MODE DETECTION
+// =====================================================
+
+
+if(batchResult){
+
+
+    batchDashboard.style.display =
+    "flex";
+
+
+    singleDashboard.style.display =
+    "none";
+
+
+    renderBatchResults();
+
+
+}
+
+
+
+else if(singleResult){
+
+
+    batchDashboard.style.display =
+    "none";
+
+
+    singleDashboard.style.display =
+    "flex";
+
+
+    renderSingleResult();
+
+
+
+}
+
+
+
+else{
+
+
+    singleDashboard.innerHTML = `
+
+
+    <div class="no-data">
+
+
+        <h2>
+
+            No Evaluation Data Found
+
+        </h2>
+
 
         <p>
 
-            Your response has been submitted successfully.
+            Please evaluate a response first.
 
         </p>
 
 
+        <button
 
-        <p>
-
-            Evaluation results will appear here after integrating the RAG evaluation pipeline.
-
-        </p>
-
-
-
-
-        <button 
         class="evaluate-btn"
-        onclick="window.location.href='/'">
+
+        onclick="goHome()">
 
 
-            Evaluate Another Response
+            Go Back
 
 
         </button>
 
 
+    </div>
 
-    </section>
+
+    `;
+
+
+}
+
+
+
+
+// =====================================================
+// GO HOME
+// =====================================================
+
+
+function goHome(){
+
+
+    sessionStorage.removeItem(
+        "evaluation_result"
+    );
+
+
+    sessionStorage.removeItem(
+        "batch_result"
+    );
+
+
+    window.location.href="/";
+
+
+}
+
+
+
+
+
+// =====================================================
+// SINGLE RESULT RENDER
+// =====================================================
+
+
+function renderSingleResult(){
+
+
+
+const result =
+singleResult;
+
+
+
+const overall =
+Number(
+    result.verdict.overall_score
+);
+
+
+
+
+// Overall Score
+
+
+document.getElementById(
+    "overall-score"
+).innerHTML =
+overall + "%";
+
+
+
+document.getElementById(
+    "overall-percent"
+).innerHTML =
+overall + "%";
+
+
+
+
+// Progress animation
+
+
+setTimeout(()=>{
+
+
+document.getElementById(
+    "overall-progress"
+)
+.style.width =
+overall + "%";
+
+
+},300);
+
+
+
+
+
+// Verdict
+
+
+const verdict =
+document.getElementById(
+    "verdict"
+);
+
+
+
+verdict.innerHTML =
+result.verdict.verdict;
+
+
+
+if(
+result.verdict.verdict === "PASS"
+){
+
+
+    verdict.className =
+    "verdict-badge badge-pass";
+
+
+}
+
+
+else if(
+result.verdict.verdict === "FAIL"
+){
+
+
+    verdict.className =
+    "verdict-badge badge-fail";
+
+
+}
+
+
+else{
+
+
+    verdict.className =
+    "verdict-badge badge-warning";
+
+
+}
+
+
+
+
+
+document.getElementById(
+    "summary"
+).innerHTML =
+result.verdict.summary;
+
+
+
+document.getElementById(
+    "detail-summary"
+).innerHTML =
+result.verdict.summary;
+
+
+
+
+
+
+// =====================================================
+// AGENT UPDATE FUNCTION
+// =====================================================
+
+
+function updateAgent(
+
+score,
+
+scoreId,
+
+ringId,
+
+statusId,
+
+reasonId,
+
+reason
+
+){
+
+
+score =
+Number(score);
+
+
+
+const percentage =
+score * 10;
+
+
+
+document.getElementById(
+    scoreId
+)
+.innerHTML =
+score + "/10";
+
+
+
+
+
+document.getElementById(
+    ringId
+)
+.style.setProperty(
+    "--progress",
+    percentage + "%"
+);
+
+
+
+
+
+const badge =
+document.getElementById(
+    statusId
+);
+
+
+
+
+if(score >= 8){
+
+
+    badge.innerHTML =
+    "GOOD";
+
+
+    badge.className =
+    "agent-status good";
+
+
+}
+
+
+
+else if(score >=6){
+
+
+    badge.innerHTML =
+    "FAIR";
+
+
+    badge.className =
+    "agent-status fair";
+
+
+}
+
+
+
+else{
+
+
+    badge.innerHTML =
+    "POOR";
+
+
+    badge.className =
+    "agent-status poor";
+
+
+}
+
+
+
+
+document.getElementById(
+    reasonId
+)
+.innerHTML =
+reason;
+
+
+}
+
+
+
+
+
+
+// Accuracy Agent
+
+
+updateAgent(
+
+result.accuracy.score,
+
+"accuracy-score",
+
+"accuracy-ring",
+
+"accuracy-status",
+
+"accuracy-reason",
+
+result.accuracy.reason
+
+);
+
+
+
+
+
+// Relevance Agent
+
+
+updateAgent(
+
+result.relevance.score,
+
+"relevance-score",
+
+"relevance-ring",
+
+"relevance-status",
+
+"relevance-reason",
+
+result.relevance.reason
+
+);
+
+
+
+
+
+// Hallucination Agent
+
+
+updateAgent(
+
+result.hallucination.score,
+
+"hallucination-score",
+
+"hallucination-ring",
+
+"hallucination-status",
+
+"hallucination-reason",
+
+result.hallucination.reason
+
+);
+
+
+
+
+
+// Completeness Agent
+
+
+updateAgent(
+
+result.completeness.score,
+
+"completeness-score",
+
+"completeness-ring",
+
+"completeness-status",
+
+"completeness-reason",
+
+result.completeness.reason
+
+);
+
+
+
+}
+// =====================================================
+// BATCH RESULT FUNCTION
+// =====================================================
+
+
+function renderBatchResults(){
+
+
+const results =
+batchResult.results;
+
+
+const fileName =
+batchResult.filename;
+
+
+
+let total =
+results.length;
+
+
+let pass = 0;
+
+let needsImprovement = 0;
+
+let fail = 0;
+
+
+let totalScore = 0;
+
+
+
+
+
+results.forEach(row=>{
+
+
+    totalScore +=
+    Number(
+        row.overall_score
+    );
+
+
+
+    if(row.verdict === "PASS"){
+
+
+        pass++;
+
+
+    }
+
+
+    else if(
+        row.verdict === "NEEDS IMPROVEMENT"
+    ){
+
+
+        needsImprovement++;
+
+
+    }
+
+
+    else{
+
+
+        fail++;
+
+
+    }
+
+
+});
+
+
+
+
+
+const average =
+
+(
+totalScore / total
+
+).toFixed(1);
+
+
+
+
+
+
+
+let html = `
+
+
+
+<div class="summary-dashboard-card">
+
+
+
+<div class="section-title">
+
+
+<span class="title-icon">
+
+📊
+
+</span>
+
+
+<h2>
+
+Batch Evaluation Summary
+
+</h2>
+
 
 </div>
+
+
+
+
+
+<div class="overall-section">
+
+
+
+
+
+<div class="overall-score-box">
+
+
+<h4>
+
+Average Score
+
+</h4>
+
+
+<div class="overall-number">
+
+${average}%
+
+</div>
+
+
+<div class="verdict-badge badge-pass">
+
+COMPLETED
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="overall-progress-area">
+
+
+
+<div class="progress-header">
+
+<span>
+
+CSV Evaluation Report
+
+</span>
+
+
+<strong>
+
+${average}%
+
+</strong>
+
+
+</div>
+
+
+
+
+
+<div class="overall-progress-bar">
+
+
+<div
+
+class="overall-progress-fill"
+
+style="width:${average}%">
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<p id="summary">
+
+
+<strong>
+
+File:
+
+</strong>
+
+${fileName}
+
+<br><br>
+
+
+<strong>
+
+Total Questions:
+
+</strong>
+
+${total}
+
+
+<br>
+
+
+<strong>
+
+PASS:
+
+</strong>
+
+${pass}
+
+
+<br>
+
+
+<strong>
+
+NEEDS IMPROVEMENT:
+
+</strong>
+
+${needsImprovement}
+
+
+<br>
+
+
+<strong>
+
+FAIL:
+
+</strong>
+
+${fail}
+
+
+
+</p>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="detail-card">
+
+
+<div class="detail-header">
+
+
+<span>
+
+📋
+
+</span>
+
+
+<h2>
+
+Batch Evaluation Results
+
+</h2>
+
+
+
+</div>
+
+
+
+
+
+<div style="overflow:auto;">
+
+
+
+<table class="batch-table">
+
+
+
+<thead>
+
+
+<tr>
+
+
+<th>
+
+Question
+
+</th>
+
+
+<th>
+
+Accuracy
+
+</th>
+
+
+<th>
+
+Relevance
+
+</th>
+
+
+<th>
+
+Hallucination
+
+</th>
+
+
+<th>
+
+Completeness
+
+</th>
+
+
+<th>
+
+Overall
+
+</th>
+
+
+<th>
+
+Verdict
+
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+
+<tbody>
+
+
+
+
+`;
+
+
+
+
+
+
+
+
+
+results.forEach(row=>{
+
+
+let badgeClass =
+"badge-warning";
+
+
+
+if(row.verdict==="PASS"){
+
+badgeClass =
+"badge-pass";
+
+}
+
+
+else if(row.verdict==="FAIL"){
+
+badgeClass =
+"badge-fail";
+
+}
+
+
+
+
+html += `
+
+
+
+<tr>
+
+
+
+<td>
+
+${row.question}
+
+</td>
+
+
+
+
+<td>
+
+${row.accuracy_score}/10
+
+</td>
+
+
+
+
+<td>
+
+${row.relevance_score}/10
+
+</td>
+
+
+
+
+<td>
+
+${row.hallucination_score}/10
+
+</td>
+
+
+
+
+<td>
+
+${row.completeness_score}/10
+
+</td>
+
+
+
+
+<td>
+
+${row.overall_score}%
+
+</td>
+
+
+
+
+<td>
+
+
+<span class="verdict-badge ${badgeClass}">
+
+
+${row.verdict}
+
+
+</span>
+
+
+</td>
+
+
+
+</tr>
+
+
+
+`;
+
+
+
+});
+
+
+
+
+
+
+html += `
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+
+
+
+
+
+<br>
+
+
+
+
+<div
+
+style="display:flex;
+gap:20px;
+justify-content:center;
+flex-wrap:wrap;">
+
+
+
+
+
+<button
+
+class="evaluate-btn"
+
+onclick="downloadBatchCSV()">
+
+
+
+⬇ Download CSV Report
+
+
+
+</button>
+
+
+
+
+
+
+
+<button
+
+class="evaluate-btn"
+
+onclick="goHome()">
+
+
+
+🔄 Evaluate Another CSV
+
+
+
+</button>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+`;
+
+
+
+
+
+
+batchDashboard.innerHTML = html;
+
+
+
+}
+
+
+
+
+
+
+
+
+// =====================================================
+// DOWNLOAD CSV
+// =====================================================
+
+
+
+function downloadBatchCSV(){
+
+
+window.location.href =
+
+"/download-batch-results";
+
+
+}
+
+
+
+
+</script>
+
+
+
+
+
 </body>
+
+
 </html>

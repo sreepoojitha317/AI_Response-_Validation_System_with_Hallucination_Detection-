@@ -1,7 +1,7 @@
 import json
 import re
 
-from app.evaluation.ollama_eval import generate_response
+from app.evaluation.groq_eval import generate_response
 from app.evaluation.prompt_templates import build_prompt
 
 
@@ -54,9 +54,13 @@ Evaluation Rules:
 • Ensure that the score is consistent with the reason.
 
 IMPORTANT:
+
 Return ONLY valid JSON.
+
 Do NOT use markdown.
+
 Do NOT use ```json.
+
 Do NOT write any explanation outside JSON.
 
 Expected format:
@@ -79,14 +83,13 @@ Expected format:
     response = generate_response(prompt)
 
     try:
-        # Remove markdown if present
+
         response = response.strip()
 
         if response.startswith("```"):
             response = re.sub(r"^```(?:json)?", "", response)
             response = response.replace("```", "").strip()
 
-        # Extract JSON object
         match = re.search(r"\{.*\}", response, re.DOTALL)
 
         if match:
@@ -98,7 +101,7 @@ Expected format:
 
         result = {
             "score": None,
-            "reason": "Unable to parse Ollama response.",
+            "reason": "Unable to parse Groq response.",
             "evidence": response,
             "status": "ERROR"
         }

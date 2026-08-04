@@ -1,7 +1,7 @@
 import json
 import re
 
-from app.evaluation.ollama_eval import generate_response
+from app.evaluation.groq_eval import generate_response
 from app.evaluation.prompt_templates import build_prompt
 
 
@@ -50,6 +50,7 @@ Evaluation Rules:
 • Short answers (one word or one sentence) are acceptable if they correctly answer the question.
 • Do not penalize responses for being brief.
 • If the response directly answers the question, give 10 even if no extra explanation is provided.
+
 IMPORTANT:
 
 Return ONLY valid JSON.
@@ -78,13 +79,13 @@ Return EXACTLY this format:
     response = generate_response(prompt)
 
     # Uncomment for debugging if needed
-    # print("\n========== RAW OLLAMA RESPONSE ==========")
+    # print("\n========== RAW GROQ RESPONSE ==========")
     # print(response)
-    # print("=========================================\n")
+    # print("=======================================\n")
 
     try:
 
-        # Extract JSON even if Ollama adds extra text
+        # Extract JSON even if Groq adds extra text
         match = re.search(r"\{.*\}", response, re.DOTALL)
 
         if match:
@@ -96,7 +97,7 @@ Return EXACTLY this format:
 
         result = {
             "score": None,
-            "reason": "Unable to parse Ollama response.",
+            "reason": "Unable to parse Groq response.",
             "evidence": response,
             "status": "ERROR"
         }

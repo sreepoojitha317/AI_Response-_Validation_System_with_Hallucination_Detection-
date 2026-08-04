@@ -14,3 +14,11 @@ data/chroma_db/
 data/processed/chunks.pkl
 data/processed/merged_dataset.csv
 data/processed/processed_dataset.csv
+
+# Batch Evaluation
+uploads/
+batch_results.csv
+
+# Python cache
+__pycache__/
+*.pyc

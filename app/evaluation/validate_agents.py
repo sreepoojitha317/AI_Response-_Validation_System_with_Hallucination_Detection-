@@ -3,6 +3,9 @@ import pandas as pd
 from app.evaluation.accuracy_agent import evaluate_accuracy
 from app.evaluation.relevance_agent import evaluate_relevance
 from app.evaluation.hallucination_agent import evaluate_hallucination
+from app.evaluation.completeness_agent import evaluate_completeness
+from app.evaluation.verdict_agent import evaluate_verdict
+
 
 # ============================================================
 # Load Benchmark Dataset
@@ -76,20 +79,59 @@ for i, row in df.iterrows():
     )
 
     # ============================================================
-    # Results
+    # Completeness Agent
+    # ============================================================
+
+    completeness = evaluate_completeness(
+        question,
+        ai_response,
+        reference
+    )
+
+    # ============================================================
+    # Verdict Agent
+    # ============================================================
+
+    verdict = evaluate_verdict(
+        accuracy,
+        relevance,
+        hallucination,
+        completeness
+    )
+
+    # ============================================================
+    # Individual Scores
     # ============================================================
 
     print("\n---------------- AGENT SCORES ----------------")
 
-    print(f"Accuracy Score      : {accuracy['score']}")
-    print(f"Relevance Score     : {relevance['score']}")
-    print(f"Hallucination Score : {hallucination['score']}")
+    print(f"Accuracy Score      : {accuracy['score']}/10")
+    print(f"Relevance Score     : {relevance['score']}/10")
+    print(f"Hallucination Score : {hallucination['score']}/10")
+    print(f"Completeness Score  : {completeness['score']}/10")
+
+    # ============================================================
+    # Reasons
+    # ============================================================
 
     print("\n---------------- REASONS ----------------")
 
     print(f"Accuracy      : {accuracy['reason']}")
     print(f"Relevance     : {relevance['reason']}")
     print(f"Hallucination : {hallucination['reason']}")
+    print(f"Completeness  : {completeness['reason']}")
+
+    # ============================================================
+    # Overall Verdict
+    # ============================================================
+
+    print("\n---------------- OVERALL VERDICT ----------------")
+
+    print(f"Overall Score : {verdict['overall_score']}%")
+    print(f"Verdict       : {verdict['verdict']}")
+
+    print("\nSummary:")
+    print(verdict["summary"])
 
     # ============================================================
     # Supporting Evidence
