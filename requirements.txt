@@ -30,4 +30,4 @@ transformers==5.13.0
 torch==2.13.0
 
 # PDF report generation
-playwright
+playwright==1.61.0

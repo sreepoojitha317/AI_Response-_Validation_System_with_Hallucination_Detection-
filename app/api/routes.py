@@ -445,27 +445,25 @@ async def dashboard_pdf(request: Request):
 # ==========================================================
 # Dashboard download
 # ==========================================================
+# ==========================================================
+# Dashboard download
+# ==========================================================
+
 @router.get("/download-dashboard-pdf")
-def download_dashboard_pdf():
+def download_dashboard_pdf(request: Request):
     import uuid
 
     output_file = f"Evaluation_Dashboard_{uuid.uuid4().hex}.pdf"
 
+    base_url = str(request.base_url).rstrip("/")
+
     generate_dashboard_pdf(
-
-        "http://127.0.0.1:8000/dashboard/pdf",
-
+        f"{base_url}/dashboard/pdf",
         output_file
-
     )
 
-
     return FileResponse(
-
         path=output_file,
-
         media_type="application/pdf",
-
         filename="Evaluation_Dashboard.pdf"
-
     )
