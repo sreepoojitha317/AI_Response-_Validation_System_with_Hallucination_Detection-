@@ -356,6 +356,9 @@ Dashboard / PDF
 ## Internship Information
 
 **Program:** Infosys Springboard Virtual Internship 7.0
+
 **Project:** Development of AI Response Validation System with Hallucination Detection Assistance
+
 **Domain:** Artificial Intelligence 
+
 **Author:** Sree Poojitha Sahithi
