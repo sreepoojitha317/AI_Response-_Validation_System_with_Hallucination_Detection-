@@ -1,16 +1,21 @@
 # Environment
 .env
+env/
+venv/
+.venv/
 
 # Python cache
 __pycache__/
 *.pyc
-
-# Chroma DB
-data/chroma_db/
+*.pyo
 
 # VS Code
 .vscode/
 
+# ChromaDB
+data/chroma_db/
+
+# Processed / generated data
 data/processed/chunks.pkl
 data/processed/merged_dataset.csv
 data/processed/processed_dataset.csv
@@ -19,6 +24,5 @@ data/processed/processed_dataset.csv
 uploads/
 batch_results.csv
 
-# Python cache
-__pycache__/
-*.pyc
+# Generated reports
+*.pdf

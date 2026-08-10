@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Evaluation Dashboard</title>
+
+    <link rel="stylesheet"
+          href="/static/css/dashboard.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- =====================================================
+         DASHBOARD HEADER
+    ====================================================== -->
+
+    <header class="dashboard-header">
+
+        <h1>
+            📊 Evaluation Scoring Dashboard
+        </h1>
+
+        <p>
+            AI Response Validation System with Hallucination Detection Assistance
+        </p>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         EVALUATION STATISTICS
+    ====================================================== -->
+
+    <h2 class="section-title">
+        ✨ Evaluation Statistics
+    </h2>
+
+
+   <section
+    class="kpi-grid"
+    style="
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+        width: 100%;
+    "
+>
+
+
+    <!-- Total Evaluations -->
+
+    <div
+        class="kpi-card glow"
+        style="
+            min-width: 0;
+            width: 100%;
+            box-sizing: border-box;
+        "
+    >
+
+        <div class="card-icon">
+            📊
+        </div>
+
+        <h3>
+            Total Evaluations
+        </h3>
+
+        <h2 id="total"
+            class="counter value-purple">
+            0
+        </h2>
+
+        <p class="card-sub">
+            Total responses evaluated
+        </p>
+
+    </div>
+
+
+
+    <!-- PASS -->
+
+    <div
+        class="kpi-card glow"
+        style="
+            min-width: 0;
+            width: 100%;
+            box-sizing: border-box;
+        "
+    >
+
+        <div class="card-icon">
+            ✅
+        </div>
+
+        <h3>
+            PASS
+        </h3>
+
+        <h2 id="pass"
+            class="counter value-green">
+            0
+        </h2>
+
+        <p class="card-sub">
+            High-quality responses
+        </p>
+
+    </div>
+
+
+
+    <!-- Needs Improvement -->
+
+    <div
+        class="kpi-card glow"
+        style="
+            min-width: 0;
+            width: 100%;
+            box-sizing: border-box;
+        "
+    >
+
+        <div class="card-icon">
+            ⚠️
+        </div>
+
+        <h3>
+            Needs Improvement
+        </h3>
+
+        <h2 id="needs"
+            class="counter value-yellow">
+            0
+        </h2>
+
+        <p class="card-sub">
+            Responses needing refinement
+        </p>
+
+    </div>
+
+
+
+    <!-- FAIL -->
+
+    <div
+        class="kpi-card glow"
+        style="
+            min-width: 0;
+            width: 100%;
+            box-sizing: border-box;
+        "
+    >
+
+        <div class="card-icon">
+            ❌
+        </div>
+
+        <h3>
+            FAIL
+        </h3>
+
+        <h2 id="fail"
+            class="counter value-red">
+            0
+        </h2>
+
+        <p class="card-sub">
+            Low-quality responses
+        </p>
+
+    </div>
+
+
+
+    <!-- Accuracy -->
+
+    <div
+        class="kpi-card glow"
+        style="
+            min-width: 0;
+            width: 100%;
+            box-sizing: border-box;
+        "
+    >
+
+        <div class="card-icon">
+            🎯
+        </div>
+
+        <h3>
+            Average Accuracy
+        </h3>
+
+        <h2 id="accuracy"
+            class="counter">
+            0
+        </h2>
+
+        <p class="card-sub">
+            Factual correctness score
+        </p>
+
+    </div>
+
+
+
+    <!-- Relevance -->
+
+    <div
+        class="kpi-card glow"
+        style="
+            min-width: 0;
+            width: 100%;
+            box-sizing: border-box;
+        "
+    >
+
+        <div class="card-icon">
+            🔗
+        </div>
+
+        <h3>
+            Average Relevance
+        </h3>
+
+        <h2 id="relevance"
+            class="counter">
+            0
+        </h2>
+
+        <p class="card-sub">
+            Question relevance score
+        </p>
+
+    </div>
+
+
+
+    <!-- Completeness -->
+
+    <div
+        class="kpi-card glow"
+        style="
+            min-width: 0;
+            width: 100%;
+            box-sizing: border-box;
+        "
+    >
+
+        <div class="card-icon">
+            📄
+        </div>
+
+        <h3>
+            Average Completeness
+        </h3>
+
+        <h2 id="completeness"
+            class="counter">
+            0
+        </h2>
+
+        <p class="card-sub">
+            Coverage of required information
+        </p>
+
+    </div>
+
+
+
+    <!-- Hallucination -->
+
+    <div
+        class="kpi-card glow"
+        style="
+            min-width: 0;
+            width: 100%;
+            box-sizing: border-box;
+        "
+    >
+
+        <div class="card-icon">
+            🧠
+        </div>
+
+        <h3>
+            Average Hallucination
+        </h3>
+
+        <h2 id="hallucination"
+            class="counter">
+            0
+        </h2>
+
+        <p class="card-sub">
+            Reliability score
+        </p>
+
+    </div>
+
+
+
+    <!-- Hallucination Frequency -->
+
+    <div
+        class="kpi-card glow"
+        style="
+            min-width: 0;
+            width: 100%;
+            box-sizing: border-box;
+        "
+    >
+
+        <div class="card-icon">
+            🚨
+        </div>
+
+        <h3>
+            Hallucination Frequency
+        </h3>
+
+        <h2 id="frequency"
+            class="counter">
+            0
+        </h2>
+
+        <p class="card-sub">
+            Responses with hallucinations
+        </p>
+
+    </div>
+
+
+
+    <!-- Overall Score -->
+
+    <div
+        class="kpi-card glow"
+        style="
+            min-width: 0;
+            width: 100%;
+            box-sizing: border-box;
+        "
+    >
+
+        <div class="card-icon">
+            ⭐
+        </div>
+
+        <h3>
+            Average Overall Score
+        </h3>
+
+        <h2 id="overall"
+            class="counter value-purple">
+            0%
+        </h2>
+
+        <p class="card-sub">
+            Weighted evaluation score
+        </p>
+
+    </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         EVALUATION ANALYTICS
+    ====================================================== -->
+
+    <h2 class="section-title">
+        📈 Evaluation Analytics
+    </h2>
+
+
+    <div class="chart-grid">
+
+
+        <!-- PIE CHART -->
+
+        <div class="chart-card glow">
+
+            <h2>
+                🥧 PASS / Needs Improvement / FAIL Distribution
+            </h2>
+
+            <div class="chart-container">
+
+                <canvas id="pieChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- BAR CHART -->
+
+        <div class="chart-card glow">
+
+            <h2>
+                📊 Average Dimension Scores
+            </h2>
+
+            <div class="chart-container">
+
+                <canvas id="barChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- RADAR CHART -->
+
+        <div class="chart-card glow">
+
+            <h2>
+                ⭐ AI Evaluation Profile
+            </h2>
+
+            <div class="chart-container">
+
+                <canvas id="radarChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         BATCH SUMMARY + DIMENSION-WISE SCORES
+    ====================================================== -->
+
+    <div class="dashboard-info-grid">
+
+
+        <!-- BATCH SUMMARY -->
+
+        <section class="dashboard-section summary-panel">
+
+            <h2>
+                📋 Batch Summary
+            </h2>
+
+
+            <div class="summary-content">
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Total Evaluations
+                    </span>
+
+                    <strong id="summary-total">
+                        0
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Average Score
+                    </span>
+
+                    <strong id="summary-average">
+                        0%
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-row">
+
+                    <span>
+                        PASS
+                    </span>
+
+                    <strong id="summary-pass"
+                            class="summary-pass">
+                        0
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Needs Improvement
+                    </span>
+
+                    <strong id="summary-needs"
+                            class="summary-needs">
+                        0
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-row">
+
+                    <span>
+                        FAIL
+                    </span>
+
+                    <strong id="summary-fail"
+                            class="summary-fail">
+                        0
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- DIMENSION-WISE SCORES -->
+
+        <section class="dashboard-section summary-panel">
+
+            <h2>
+                📊 Dimension-wise Scores
+            </h2>
+
+
+            <div class="dimension-content">
+
+
+                <div class="dimension-row">
+
+                    <span>
+                        🎯 Accuracy
+                    </span>
+
+                    <strong id="dimension-accuracy">
+                        0/10
+                    </strong>
+
+                </div>
+
+
+
+                <div class="dimension-row">
+
+                    <span>
+                        🔗 Relevance
+                    </span>
+
+                    <strong id="dimension-relevance">
+                        0/10
+                    </strong>
+
+                </div>
+
+
+
+                <div class="dimension-row">
+
+                    <span>
+                        🧠 Hallucination
+                    </span>
+
+                    <strong id="dimension-hallucination">
+                        0/10
+                    </strong>
+
+                </div>
+
+
+
+                <div class="dimension-row">
+
+                    <span>
+                        📄 Completeness
+                    </span>
+
+                    <strong id="dimension-completeness">
+                        0/10
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         INDIVIDUAL EVALUATION RESULTS
+    ====================================================== -->
+
+    <section class="dashboard-section unified-panel individual-results">
+
+
+        <div class="results-header">
+
+            <h2>
+                📝 Individual Evaluation Results
+            </h2>
+
+            <p>
+                Detailed evaluation results for each response
+            </p>
+
+        </div>
+
+
+
+        <div class="table-wrapper">
+
+            <table class="evaluation-table">
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Question
+                        </th>
+
+                        <th>
+                            Accuracy
+                        </th>
+
+                        <th>
+                            Relevance
+                        </th>
+
+                        <th>
+                            Hallucination
+                        </th>
+
+                        <th>
+                            Completeness
+                        </th>
+
+                        <th>
+                            Overall
+                        </th>
+
+                        <th>
+                            Verdict
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody id="evaluation-results-body">
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         IMPROVEMENT RECOMMENDATIONS
+    ====================================================== -->
+
+    <div class="dashboard-section unified-panel improvement-panel">
+
+
+        <div class="results-header">
+
+            <h2>
+                💡 Improvement Recommendations
+            </h2>
+
+            <p>
+                Recommendations based on evaluation scores
+            </p>
+
+        </div>
+
+
+        <div
+            id="recommendations-container"
+            class="recommendations-content"
+        >
+
+            <div class="recommendation-item">
+
+                <span class="recommendation-icon">
+                    💡
+                </span>
+
+                <div>
+
+                    <strong>
+                        Loading recommendations...
+                    </strong>
+
+                    <p>
+                        Recommendations will be generated
+                        based on evaluation scores.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- =====================================================
+     PDF DASHBOARD SCRIPT
+====================================================== -->
+
+<script>
+
+const dashboard = {{ dashboard | tojson }};
+
+
+// =====================================================
+// KPI VALUES
+// =====================================================
+
+document.getElementById("total").innerHTML =
+    dashboard.total;
+
+
+document.getElementById("pass").innerHTML =
+    dashboard.pass_count;
+
+
+document.getElementById("needs").innerHTML =
+    dashboard.needs_count;
+
+
+document.getElementById("fail").innerHTML =
+    dashboard.fail_count;
+
+
+document.getElementById("accuracy").innerHTML =
+    dashboard.average_accuracy + "/10";
+
+
+document.getElementById("relevance").innerHTML =
+    dashboard.average_relevance + "/10";
+
+
+document.getElementById("completeness").innerHTML =
+    dashboard.average_completeness + "/10";
+
+
+document.getElementById("hallucination").innerHTML =
+    dashboard.average_hallucination + "/10";
+
+
+document.getElementById("frequency").innerHTML =
+    dashboard.hallucination_frequency;
+
+
+document.getElementById("overall").innerHTML =
+    dashboard.average_overall + "%";
+
+
+// =====================================================
+// BATCH SUMMARY
+// =====================================================
+
+const summary =
+    dashboard.batch_summary || {};
+
+
+document.getElementById("summary-total").innerHTML =
+    summary.total_evaluations ??
+    dashboard.total ??
+    0;
+
+
+document.getElementById("summary-average").innerHTML =
+    Number(
+        summary.average_score ??
+        dashboard.average_overall ??
+        0
+    ).toFixed(1) + "%";
+
+
+document.getElementById("summary-pass").innerHTML =
+    summary.pass ??
+    dashboard.pass_count ??
+    0;
+
+
+document.getElementById("summary-needs").innerHTML =
+    summary.needs_improvement ??
+    dashboard.needs_count ??
+    0;
+
+
+document.getElementById("summary-fail").innerHTML =
+    summary.fail ??
+    dashboard.fail_count ??
+    0;
+
+
+// =====================================================
+// DIMENSION-WISE SCORES
+// =====================================================
+
+const dimensions =
+    dashboard.dimension_scores || {};
+
+
+document.getElementById("dimension-accuracy").innerHTML =
+    Number(
+        dimensions.accuracy ??
+        dashboard.average_accuracy ??
+        0
+    ).toFixed(1) + "/10";
+
+
+document.getElementById("dimension-relevance").innerHTML =
+    Number(
+        dimensions.relevance ??
+        dashboard.average_relevance ??
+        0
+    ).toFixed(1) + "/10";
+
+
+document.getElementById("dimension-hallucination").innerHTML =
+    Number(
+        dimensions.hallucination ??
+        dashboard.average_hallucination ??
+        0
+    ).toFixed(1) + "/10";
+
+
+document.getElementById("dimension-completeness").innerHTML =
+    Number(
+        dimensions.completeness ??
+        dashboard.average_completeness ??
+        0
+    ).toFixed(1) + "/10";
+
+
+// =====================================================
+// INDIVIDUAL RESULTS
+// =====================================================
+
+const tableBody =
+    document.getElementById(
+        "evaluation-results-body"
+    );
+
+
+const results =
+    dashboard.individual_results || [];
+
+
+if (results.length === 0) {
+
+    tableBody.innerHTML = `
+        <tr>
+            <td colspan="7" class="no-results">
+                No evaluation results available.
+            </td>
+        </tr>
+    `;
+
+}
+else {
+
+    results.forEach(result => {
+
+        const verdict =
+            String(
+                result.verdict || "—"
+            )
+            .toUpperCase()
+            .trim();
+
+
+        let verdictClass =
+            "verdict-default";
+
+
+        if (verdict === "PASS") {
+
+            verdictClass =
+                "verdict-pass";
+
+        }
+        else if (
+            verdict === "NEEDS IMPROVEMENT" ||
+            verdict === "NEEDS_IMPROVEMENT"
+        ) {
+
+            verdictClass =
+                "verdict-needs";
+
+        }
+        else if (verdict === "FAIL") {
+
+            verdictClass =
+                "verdict-fail";
+
+        }
+
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td class="question-cell">
+                ${escapeHTML(result.question || "—")}
+            </td>
+
+            <td>
+                <span class="score-cell">
+                    ${Number(result.accuracy || 0).toFixed(1)}/10
+                </span>
+            </td>
+
+            <td>
+                <span class="score-cell">
+                    ${Number(result.relevance || 0).toFixed(1)}/10
+                </span>
+            </td>
+
+            <td>
+                <span class="score-cell">
+                    ${Number(result.hallucination || 0).toFixed(1)}/10
+                </span>
+            </td>
+
+            <td>
+                <span class="score-cell">
+                    ${Number(result.completeness || 0).toFixed(1)}/10
+                </span>
+            </td>
+
+            <td>
+                <strong class="overall-score">
+                    ${Number(result.overall || 0).toFixed(1)}%
+                </strong>
+            </td>
+
+            <td>
+                <span class="verdict-badge ${verdictClass}">
+                    ${escapeHTML(verdict)}
+                </span>
+            </td>
+
+        `;
+
+
+        tableBody.appendChild(row);
+
+    });
+
+}
+
+
+// =====================================================
+// IMPROVEMENT RECOMMENDATIONS
+// =====================================================
+
+const recommendationContainer =
+    document.getElementById(
+        "recommendations-container"
+    );
+
+
+const recommendations =
+    dashboard.recommendations || [];
+
+
+recommendationContainer.innerHTML = "";
+
+
+if (recommendations.length === 0) {
+
+    recommendationContainer.innerHTML = `
+
+        <div class="recommendation-item">
+
+            <span class="recommendation-icon">
+                ⭐
+            </span>
+
+            <div>
+
+                <strong>
+                    Good Performance
+                </strong>
+
+                <p>
+                    No major improvement areas
+                    were identified.
+                </p>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+else {
+
+    recommendations.forEach(
+        recommendation => {
+
+            const item =
+                document.createElement("div");
+
+
+            item.className =
+                "recommendation-item";
+
+
+            item.innerHTML = `
+
+                <span class="recommendation-icon">
+                    ${escapeHTML(
+                        recommendation.icon || "💡"
+                    )}
+                </span>
+
+                <div>
+
+                    <strong>
+                        ${escapeHTML(
+                            recommendation.dimension ||
+                            "Improvement Area"
+                        )}
+                    </strong>
+
+                    <p>
+                        ${escapeHTML(
+                            recommendation.message || ""
+                        )}
+                    </p>
+
+                </div>
+
+            `;
+
+
+            recommendationContainer.appendChild(item);
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// ESCAPE HTML
+// =====================================================
+
+function escapeHTML(value) {
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+}
+
+
+// =====================================================
+// PIE CHART
+// =====================================================
+
+new Chart(
+    document.getElementById("pieChart"),
+    {
+
+        type: "pie",
+
+        data: {
+
+            labels: [
+                "PASS",
+                "Needs Improvement",
+                "FAIL"
+            ],
+
+            datasets: [{
+
+                data: [
+
+                    dashboard.pass_count,
+
+                    dashboard.needs_count,
+
+                    dashboard.fail_count
+
+                ],
+
+                backgroundColor: [
+
+                    "#22C55E",
+
+                    "#F59E0B",
+
+                    "#EF4444"
+
+                ],
+
+                borderWidth: 3,
+
+                borderColor: "#FFFFFF"
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            animation: false,
+
+            plugins: {
+
+                legend: {
+
+                    position: "bottom"
+
+                }
+
+            }
+
+        }
+
+    }
+);
+
+
+// =====================================================
+// BAR CHART
+// =====================================================
+
+new Chart(
+    document.getElementById("barChart"),
+    {
+
+        type: "bar",
+
+        data: {
+
+            labels: [
+
+                "Accuracy",
+
+                "Relevance",
+
+                "Completeness",
+
+                "Hallucination"
+
+            ],
+
+            datasets: [{
+
+                label: "Average Score",
+
+                data: [
+
+                    dashboard.average_accuracy,
+
+                    dashboard.average_relevance,
+
+                    dashboard.average_completeness,
+
+                    dashboard.average_hallucination
+
+                ],
+
+                backgroundColor: [
+
+                    "#7B4DFF",
+
+                    "#9365FF",
+
+                    "#AF86FF",
+
+                    "#B99AFF"
+
+                ],
+
+                borderRadius: 10,
+
+                borderSkipped: false
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            animation: false,
+
+            plugins: {
+
+                legend: {
+
+                    display: false
+
+                }
+
+            },
+
+            scales: {
+
+                y: {
+
+                    beginAtZero: true,
+
+                    max: 10,
+
+                    ticks: {
+
+                        stepSize: 2
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+);
+
+
+// =====================================================
+// RADAR CHART
+// =====================================================
+
+new Chart(
+    document.getElementById("radarChart"),
+    {
+
+        type: "radar",
+
+        data: {
+
+            labels: [
+
+                "Accuracy",
+
+                "Relevance",
+
+                "Completeness",
+
+                "Hallucination",
+
+                "Overall Score"
+
+            ],
+
+            datasets: [{
+
+                label: "AI Evaluation Profile",
+
+                data: [
+
+                    dashboard.average_accuracy,
+
+                    dashboard.average_relevance,
+
+                    dashboard.average_completeness,
+
+                    dashboard.average_hallucination,
+
+                    Number(
+                        dashboard.average_overall || 0
+                    ) / 10
+
+                ],
+
+                backgroundColor:
+                    "rgba(123,77,255,0.20)",
+
+                borderColor:
+                    "#7B4DFF",
+
+                borderWidth: 3,
+
+                pointBackgroundColor:
+                    "#7B4DFF",
+
+                pointBorderColor:
+                    "#FFFFFF",
+
+                pointRadius: 5
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            animation: false,
+
+            plugins: {
+
+                legend: {
+
+                    position: "bottom"
+
+                }
+
+            },
+
+            scales: {
+
+                r: {
+
+                    min: 0,
+
+                    max: 10,
+
+                    ticks: {
+
+                        stepSize: 2,
+
+                        backdropColor:
+                            "transparent"
+
+                    },
+
+                    grid: {
+
+                        color:
+                            "#E8DDFE"
+
+                    },
+
+                    angleLines: {
+
+                        color:
+                            "#E8DDFE"
+
+                    },
+
+                    pointLabels: {
+
+                        color:
+                            "#555",
+
+                        font: {
+
+                            size: 13,
+
+                            weight: "bold"
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

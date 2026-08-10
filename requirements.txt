@@ -1,34 +1,33 @@
+# Core backend
 fastapi==0.139.2
 uvicorn==0.51.0
-
 pydantic==2.13.4
 python-dotenv==1.2.2
 
+# Web UI / templates / file uploads
 jinja2==3.1.6
 python-multipart==0.0.32
 
+# LLM
 groq==1.5.0
 
+# RAG / LangChain / Vector Database
 langchain==1.3.12
 langchain-core==1.5.0
 langchain-community==0.4.2
 langchain-chroma==1.1.0
 langchain-huggingface==1.2.2
-
 chromadb==1.5.9
 
+# Data processing
 datasets==5.0.0
 pandas==3.0.5
 numpy==2.5.1
 
+# Embeddings / ML runtime
 sentence-transformers==5.6.0
 transformers==5.13.0
 torch==2.13.0
 
-ragas==0.4.3
-
-trulens==1.5.3
-trulens-core==1.4.5
-trulens-feedback==1.5.3
-trulens-dashboard==1.5.3
-trulens_eval==1.5.3
+# PDF report generation
+playwright

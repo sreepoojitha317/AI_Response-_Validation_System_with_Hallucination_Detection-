@@ -1359,7 +1359,30 @@ textarea:focus{
     scale(1.03);
 
 }
+#batch-actions{
 
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    flex-wrap:wrap;
+
+    margin-top:40px;
+
+}
+
+#batch-actions .evaluate-btn{
+
+    width:280px;
+
+}
+.batch-table td .verdict-badge{
+
+    display:inline-block;
+
+}
 
 /* =====================================================
    NO DATA
@@ -1396,7 +1419,69 @@ textarea:focus{
     margin-bottom:30px;
 
 }
+/* =====================================================
+   BATCH TABLE
+===================================================== */
 
+.batch-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    margin-top:25px;
+
+}
+
+.batch-table thead{
+
+    background:rgba(255,255,255,.12);
+
+}
+
+.batch-table th{
+
+    color:#ffffff;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    padding:18px 24px;
+
+    text-align:center;
+
+    white-space:nowrap;
+
+}
+
+.batch-table td{
+
+    color:#ffffff;
+
+    font-size:15px;
+
+    padding:18px 24px;
+
+    text-align:center;
+
+    border-bottom:1px solid rgba(255,255,255,.12);
+
+}
+
+.batch-table td:first-child{
+
+    text-align:left;
+
+    min-width:320px;
+
+}
+
+.batch-table tr:hover{
+
+    background:rgba(255,255,255,.08);
+
+}
 
 /* =====================================================
    RESPONSIVE

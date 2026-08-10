@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Evaluation Dashboard</title>
+
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', path='css/dashboard.css') }}">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =====================================================
+         DASHBOARD HEADER
+    ====================================================== -->
+
+    <header class="dashboard-header">
+
+        <h1>
+            📊 Evaluation Scoring Dashboard
+        </h1>
+
+        <p>
+            AI Response Validation System with Hallucination Detection Assistance
+        </p>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         EVALUATION STATISTICS
+    ====================================================== -->
+
+    <h2 class="section-title">
+        ✨ Evaluation Statistics
+    </h2>
+
+
+    <div class="kpi-grid">
+
+
+        <!-- Total Evaluations -->
+
+        <div class="kpi-card">
+
+            <div class="card-icon">
+                📊
+            </div>
+
+            <h3>
+                Total Evaluations
+            </h3>
+
+            <h2 id="total"
+                class="counter value-purple">
+                0
+            </h2>
+
+            <p class="card-sub">
+                Total responses evaluated
+            </p>
+
+        </div>
+
+
+
+        <!-- PASS -->
+
+        <div class="kpi-card">
+
+            <div class="card-icon">
+                ✅
+            </div>
+
+            <h3>
+                PASS
+            </h3>
+
+            <h2 id="pass"
+                class="counter value-green">
+                0
+            </h2>
+
+            <p class="card-sub">
+                High-quality responses
+            </p>
+
+        </div>
+
+
+
+        <!-- Needs Improvement -->
+
+        <div class="kpi-card">
+
+            <div class="card-icon">
+                ⚠️
+            </div>
+
+            <h3>
+                Needs Improvement
+            </h3>
+
+            <h2 id="needs"
+                class="counter value-yellow">
+                0
+            </h2>
+
+            <p class="card-sub">
+                Responses needing refinement
+            </p>
+
+        </div>
+
+
+
+        <!-- FAIL -->
+
+        <div class="kpi-card">
+
+            <div class="card-icon">
+                ❌
+            </div>
+
+            <h3>
+                FAIL
+            </h3>
+
+            <h2 id="fail"
+                class="counter value-red">
+                0
+            </h2>
+
+            <p class="card-sub">
+                Low-quality responses
+            </p>
+
+        </div>
+
+
+
+        <!-- Accuracy -->
+
+        <div class="kpi-card">
+
+            <div class="card-icon">
+                🎯
+            </div>
+
+            <h3>
+                Average Accuracy
+            </h3>
+
+            <h2 id="accuracy"
+                class="counter">
+                0
+            </h2>
+
+            <p class="card-sub">
+                Factual correctness score
+            </p>
+
+        </div>
+
+
+
+        <!-- Relevance -->
+
+        <div class="kpi-card">
+
+            <div class="card-icon">
+                🔗
+            </div>
+
+            <h3>
+                Average Relevance
+            </h3>
+
+            <h2 id="relevance"
+                class="counter">
+                0
+            </h2>
+
+            <p class="card-sub">
+                Question relevance score
+            </p>
+
+        </div>
+
+
+
+        <!-- Completeness -->
+
+        <div class="kpi-card">
+
+            <div class="card-icon">
+                📄
+            </div>
+
+            <h3>
+                Average Completeness
+            </h3>
+
+            <h2 id="completeness"
+                class="counter">
+                0
+            </h2>
+
+            <p class="card-sub">
+                Coverage of required information
+            </p>
+
+        </div>
+
+
+
+        <!-- Hallucination -->
+
+        <div class="kpi-card">
+
+            <div class="card-icon">
+                🧠
+            </div>
+
+            <h3>
+                Average Hallucination
+            </h3>
+
+            <h2 id="hallucination"
+                class="counter">
+                0
+            </h2>
+
+            <p class="card-sub">
+                Reliability score
+            </p>
+
+        </div>
+
+
+
+        <!-- Hallucination Frequency -->
+
+        <div class="kpi-card">
+
+            <div class="card-icon">
+                🚨
+            </div>
+
+            <h3>
+                Hallucination Frequency
+            </h3>
+
+            <h2 id="frequency"
+                class="counter">
+                0
+            </h2>
+
+            <p class="card-sub">
+                Responses with hallucinations
+            </p>
+
+        </div>
+
+
+
+        <!-- Overall Score -->
+
+        <div class="kpi-card">
+
+            <div class="card-icon">
+                ⭐
+            </div>
+
+            <h3>
+                Average Overall Score
+            </h3>
+
+            <h2 id="overall"
+                class="counter value-purple">
+                0%
+            </h2>
+
+            <p class="card-sub">
+                Weighted evaluation score
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         EVALUATION ANALYTICS
+    ====================================================== -->
+
+    <h2 class="section-title">
+        📈 Evaluation Analytics
+    </h2>
+
+
+    <div class="chart-grid">
+
+
+        <!-- ================= PIE CHART ================= -->
+
+        <div class="chart-card glow">
+
+            <h2>
+                🥧 PASS / Needs Improvement / FAIL Distribution
+            </h2>
+
+            <div class="chart-container">
+
+                <canvas id="pieChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= BAR CHART ================= -->
+
+        <div class="chart-card glow">
+
+            <h2>
+                📊 Average Dimension Scores
+            </h2>
+
+            <div class="chart-container">
+
+                <canvas id="barChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= RADAR CHART ================= -->
+
+        <div class="chart-card glow">
+
+            <h2>
+                ⭐ AI Evaluation Profile
+            </h2>
+
+            <div class="chart-container">
+
+                <canvas id="radarChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         BATCH SUMMARY + DIMENSION SCORES
+         SIDE BY SIDE
+    ====================================================== -->
+
+    <div class="dashboard-info-grid">
+
+
+        <!-- =================================================
+             BATCH SUMMARY
+        ================================================== -->
+
+        <section class="dashboard-section summary-panel">
+
+            <h2>
+                📋 Batch Summary
+            </h2>
+
+
+            <div class="summary-content">
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Total Evaluations
+                    </span>
+
+                    <strong id="summary-total">
+                        0
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Average Score
+                    </span>
+
+                    <strong id="summary-average">
+                        0%
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-row">
+
+                    <span>
+                        PASS
+                    </span>
+
+                    <strong id="summary-pass"
+                            class="summary-pass">
+                        0
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-row">
+
+                    <span>
+                        Needs Improvement
+                    </span>
+
+                    <strong id="summary-needs"
+                            class="summary-needs">
+                        0
+                    </strong>
+
+                </div>
+
+
+
+                <div class="summary-row">
+
+                    <span>
+                        FAIL
+                    </span>
+
+                    <strong id="summary-fail"
+                            class="summary-fail">
+                        0
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             DIMENSION-WISE SCORES
+        ================================================== -->
+
+        <section class="dashboard-section summary-panel">
+
+            <h2>
+                📊 Dimension-wise Scores
+            </h2>
+
+
+            <div class="dimension-content">
+
+
+                <div class="dimension-row">
+
+                    <span>
+                        🎯 Accuracy
+                    </span>
+
+                    <strong id="dimension-accuracy">
+                        0/10
+                    </strong>
+
+                </div>
+
+
+
+                <div class="dimension-row">
+
+                    <span>
+                        🔗 Relevance
+                    </span>
+
+                    <strong id="dimension-relevance">
+                        0/10
+                    </strong>
+
+                </div>
+
+
+
+                <div class="dimension-row">
+
+                    <span>
+                        🧠 Hallucination
+                    </span>
+
+                    <strong id="dimension-hallucination">
+                        0/10
+                    </strong>
+
+                </div>
+
+
+
+                <div class="dimension-row">
+
+                    <span>
+                        📄 Completeness
+                    </span>
+
+                    <strong id="dimension-completeness">
+                        0/10
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         INDIVIDUAL EVALUATION RESULTS
+         FULL WIDTH
+    ====================================================== -->
+
+    <section class="dashboard-section unified-panel individual-results">
+
+
+        <div class="results-header">
+
+            <h2>
+                📝 Individual Evaluation Results
+            </h2>
+
+            <p>
+                Detailed evaluation results for each response
+            </p>
+
+        </div>
+
+
+
+        <div class="table-wrapper">
+
+            <table class="evaluation-table">
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Question
+                        </th>
+
+                        <th>
+                            Accuracy
+                        </th>
+
+                        <th>
+                            Relevance
+                        </th>
+
+                        <th>
+                            Hallucination
+                        </th>
+
+                        <th>
+                            Completeness
+                        </th>
+
+                        <th>
+                            Overall
+                        </th>
+
+                        <th>
+                            Verdict
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <tbody id="evaluation-results-body">
+
+                    <!--
+                        Rows will be inserted dynamically
+                        by dashboard.js
+                    -->
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+
+    </section>
+
+     <!-- =====================================================
+         IMPROVEMENT RECOMMENDATIONS
+      ====================================================== -->
+
+    <div class="dashboard-section unified-panel improvement-panel">
+
+        <div class="results-header">
+
+            <h2>
+                💡 Improvement Recommendations
+            </h2>
+
+            <p>
+                Recommendations based on evaluation scores
+            </p>
+
+        </div>
+
+        <div
+            id="recommendations-container"
+            class="recommendations-content"
+        >
+
+            <div class="recommendation-item">
+
+                <span class="recommendation-icon">
+                    💡
+                </span>
+
+                <div>
+
+                    <strong>
+                        Loading recommendations...
+                    </strong>
+
+                    <p>
+                        Recommendations will be generated
+                        based on evaluation scores.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>  
+
+    <!-- =====================================================
+         DASHBOARD ACTION BUTTONS
+    ====================================================== -->
+
+    <div class="button-group">
+
+
+        <!-- Download PDF -->
+
+        <button
+            class="dashboard-btn"
+            onclick="downloadPDF()">
+
+            📄 Download PDF
+
+        </button>
+
+
+
+        <!-- Back to Results -->
+
+        <button
+            class="dashboard-btn secondary"
+            onclick="window.location.href='/results'">
+
+            ← Back to Results
+
+        </button>
+
+
+
+        <!-- Home -->
+
+        <button
+            class="dashboard-btn"
+            onclick="window.location.href='/'">
+
+            🏠 Home
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="dashboard-footer">
+
+        ✨ AI Response Validation System with Hallucination Detection Assistance
+
+        <br>
+
+        Evaluation Dashboard
+
+    </footer>
+
+
+</div>
+
+
+<!-- =========================================================
+     DASHBOARD JAVASCRIPT
+========================================================= -->
+<script src="{{ url_for('static', path='js/dashboard.js') }}"></script>
+
+
+</body>
+
+</html>

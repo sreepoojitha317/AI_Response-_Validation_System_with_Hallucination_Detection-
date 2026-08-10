@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-
+    
     <meta charset="UTF-8">
 
     <meta
@@ -378,39 +378,46 @@
         </div>
 
     </div>
+  
+        <!-- ===================== BATCH ACTION BUTTONS ===================== -->
+        <div 
+            id="batch-actions"
+            style="
+                display:flex;
+                justify-content:center;
+                gap:20px;
+                flex-wrap:wrap;
+                margin-top:30px;
+            ">  
+ 
+            <button
+                class="evaluate-btn"
+                onclick="downloadBatchCSV()">
+
+                ⬇ Download CSV Report
+
+           </button>
 
 
+           <button
+               class="evaluate-btn dashboard-btn"
+               onclick="openDashboard()">
 
-    <!-- ===================== BUTTONS ===================== -->
+               📊 View Dashboard
 
-    <div
-        style="
-        display:flex;
-        justify-content:center;
-        gap:20px;
-        flex-wrap:wrap;">
+           </button>
 
-        <button
-            class="evaluate-btn"
-            onclick="downloadBatchCSV()">
 
-            ⬇ Download Evaluation Report
+           <button
+                class="evaluate-btn"
+                onclick="goHome()">
 
-        </button>
+                🔄 Evaluate Another CSV
 
-        <button
-            class="evaluate-btn"
-            onclick="goHome()">
-
-            🔄 Evaluate Another CSV
-
-        </button>
-
-    </div>
+            </button>
+        </div>
 
 </section>
-
-
 
 <!-- =====================================================
                 SINGLE RESULT DASHBOARD
@@ -1400,287 +1407,248 @@ result.completeness.reason
 // BATCH RESULT FUNCTION
 // =====================================================
 
-
 function renderBatchResults(){
 
-
-const results =
-batchResult.results;
-
-
-const fileName =
-batchResult.filename;
+    const results =
+    batchResult.results;
 
 
-
-let total =
-results.length;
-
-
-let pass = 0;
-
-let needsImprovement = 0;
-
-let fail = 0;
+    const fileName =
+    batchResult.filename;
 
 
-let totalScore = 0;
+    let total =
+    results.length;
+
+
+    let pass = 0;
+
+    let needsImprovement = 0;
+
+    let fail = 0;
+
+    let totalScore = 0;
 
 
 
+    results.forEach(row=>{
 
 
-results.forEach(row=>{
-
-
-    totalScore +=
-    Number(
-        row.overall_score
-    );
+        totalScore +=
+        Number(row.overall_score);
 
 
 
-    if(row.verdict === "PASS"){
+        if(row.verdict === "PASS"){
+
+            pass++;
+
+        }
+
+        else if(row.verdict === "NEEDS IMPROVEMENT"){
+
+            needsImprovement++;
+
+        }
+
+        else{
+
+            fail++;
+
+        }
 
 
-        pass++;
+    });
 
 
-    }
 
+    const average =
+    (
+        totalScore / total
 
-    else if(
-        row.verdict === "NEEDS IMPROVEMENT"
-    ){
-
-
-        needsImprovement++;
-
-
-    }
-
-
-    else{
-
-
-        fail++;
-
-
-    }
-
-
-});
+    ).toFixed(1);
 
 
 
 
-
-const average =
-
-(
-totalScore / total
-
-).toFixed(1);
-
-
-
-
-
-
-
-let html = `
+    let html = `
 
 
 
 <div class="summary-dashboard-card">
 
 
-
-<div class="section-title">
-
-
-<span class="title-icon">
-
-📊
-
-</span>
+    <div class="section-title">
 
 
-<h2>
+        <span class="title-icon">
 
-Batch Evaluation Summary
+            📊
 
-</h2>
+        </span>
+
+
+        <h2>
+
+            Batch Evaluation Summary
+
+        </h2>
+
+
+    </div>
+
+
+
+    <div class="overall-section">
+
+
+
+        <div class="overall-score-box">
+
+
+            <h4>
+
+                Average Score
+
+            </h4>
+
+
+
+            <div class="overall-number">
+
+                ${average}%
+
+            </div>
+
+
+
+            <div class="verdict-badge badge-pass">
+
+                COMPLETED
+
+            </div>
+
+
+        </div>
+
+
+
+
+        <div class="overall-progress-area">
+
+
+            <div class="progress-header">
+
+
+                <span>
+
+                    CSV Evaluation Report
+
+                </span>
+
+
+
+                <strong>
+
+                    ${average}%
+
+                </strong>
+
+
+            </div>
+
+
+
+
+            <div class="overall-progress-bar">
+
+
+                <div
+
+                class="overall-progress-fill"
+
+                style="width:${average}%">
+
+                </div>
+
+
+            </div>
+
+
+
+
+            <p id="summary">
+
+
+                <strong>
+
+                    File:
+
+                </strong>
+
+                ${fileName}
+
+
+                <br><br>
+
+
+
+                <strong>
+
+                    Total Questions:
+
+                </strong>
+
+                ${total}
+
+
+                <br>
+
+
+                <strong>
+
+                    PASS:
+
+                </strong>
+
+                ${pass}
+
+
+                <br>
+
+
+                <strong>
+
+                    NEEDS IMPROVEMENT:
+
+                </strong>
+
+                ${needsImprovement}
+
+
+                <br>
+
+
+                <strong>
+
+                    FAIL:
+
+                </strong>
+
+                ${fail}
+
+
+            </p>
+
+
+
+        </div>
+
+
+    </div>
 
 
 </div>
-
-
-
-
-
-<div class="overall-section">
-
-
-
-
-
-<div class="overall-score-box">
-
-
-<h4>
-
-Average Score
-
-</h4>
-
-
-<div class="overall-number">
-
-${average}%
-
-</div>
-
-
-<div class="verdict-badge badge-pass">
-
-COMPLETED
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="overall-progress-area">
-
-
-
-<div class="progress-header">
-
-<span>
-
-CSV Evaluation Report
-
-</span>
-
-
-<strong>
-
-${average}%
-
-</strong>
-
-
-</div>
-
-
-
-
-
-<div class="overall-progress-bar">
-
-
-<div
-
-class="overall-progress-fill"
-
-style="width:${average}%">
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-<p id="summary">
-
-
-<strong>
-
-File:
-
-</strong>
-
-${fileName}
-
-<br><br>
-
-
-<strong>
-
-Total Questions:
-
-</strong>
-
-${total}
-
-
-<br>
-
-
-<strong>
-
-PASS:
-
-</strong>
-
-${pass}
-
-
-<br>
-
-
-<strong>
-
-NEEDS IMPROVEMENT:
-
-</strong>
-
-${needsImprovement}
-
-
-<br>
-
-
-<strong>
-
-FAIL:
-
-</strong>
-
-${fail}
-
-
-
-</p>
-
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-</div>
-
-
-
-
 
 
 
@@ -1689,25 +1657,25 @@ ${fail}
 <div class="detail-card">
 
 
-<div class="detail-header">
+    <div class="detail-header">
 
 
-<span>
+        <span>
 
-📋
+            📋
 
-</span>
-
-
-<h2>
-
-Batch Evaluation Results
-
-</h2>
+        </span>
 
 
 
-</div>
+        <h2>
+
+            Batch Evaluation Results
+
+        </h2>
+
+
+    </div>
 
 
 
@@ -1716,9 +1684,7 @@ Batch Evaluation Results
 <div style="overflow:auto;">
 
 
-
 <table class="batch-table">
-
 
 
 <thead>
@@ -1727,53 +1693,19 @@ Batch Evaluation Results
 <tr>
 
 
-<th>
+<th>Question</th>
 
-Question
+<th>Accuracy</th>
 
-</th>
+<th>Relevance</th>
 
+<th>Hallucination</th>
 
-<th>
+<th>Completeness</th>
 
-Accuracy
+<th>Overall</th>
 
-</th>
-
-
-<th>
-
-Relevance
-
-</th>
-
-
-<th>
-
-Hallucination
-
-</th>
-
-
-<th>
-
-Completeness
-
-</th>
-
-
-<th>
-
-Overall
-
-</th>
-
-
-<th>
-
-Verdict
-
-</th>
+<th>Verdict</th>
 
 
 </tr>
@@ -1783,10 +1715,7 @@ Verdict
 
 
 
-
 <tbody>
-
-
 
 
 `;
@@ -1795,42 +1724,40 @@ Verdict
 
 
 
-
-
-
-
 results.forEach(row=>{
 
 
-let badgeClass =
-"badge-warning";
+    let badgeClass =
+    "badge-warning";
 
 
 
-if(row.verdict==="PASS"){
-
-badgeClass =
-"badge-pass";
-
-}
+    if(row.verdict === "PASS"){
 
 
-else if(row.verdict==="FAIL"){
-
-badgeClass =
-"badge-fail";
-
-}
+        badgeClass =
+        "badge-pass";
 
 
+    }
+
+    else if(row.verdict === "FAIL"){
 
 
-html += `
+        badgeClass =
+        "badge-fail";
+
+
+    }
+
+
+
+
+    html += `
 
 
 
 <tr>
-
 
 
 <td>
@@ -1838,7 +1765,6 @@ html += `
 ${row.question}
 
 </td>
-
 
 
 
@@ -1850,13 +1776,11 @@ ${row.accuracy_score}/10
 
 
 
-
 <td>
 
 ${row.relevance_score}/10
 
 </td>
-
 
 
 
@@ -1868,13 +1792,11 @@ ${row.hallucination_score}/10
 
 
 
-
 <td>
 
 ${row.completeness_score}/10
 
 </td>
-
 
 
 
@@ -1892,9 +1814,7 @@ ${row.overall_score}%
 
 <span class="verdict-badge ${badgeClass}">
 
-
 ${row.verdict}
-
 
 </span>
 
@@ -1934,21 +1854,23 @@ html += `
 
 
 
-
-
-<br>
-
-
-
-
 <div
 
-style="display:flex;
+id="batch-actions"
+
+style="
+
+display:flex;
+
 gap:20px;
+
 justify-content:center;
-flex-wrap:wrap;">
 
+flex-wrap:wrap;
 
+margin-top:30px;
+
+">
 
 
 
@@ -1959,14 +1881,26 @@ class="evaluate-btn"
 onclick="downloadBatchCSV()">
 
 
-
 ⬇ Download CSV Report
-
 
 
 </button>
 
 
+
+
+
+<button
+
+class="evaluate-btn dashboard-btn"
+
+onclick="openDashboard()">
+
+
+📊 View Dashboard
+
+
+</button>
 
 
 
@@ -1979,9 +1913,7 @@ class="evaluate-btn"
 onclick="goHome()">
 
 
-
 🔄 Evaluate Another CSV
-
 
 
 </button>
@@ -1989,22 +1921,11 @@ onclick="goHome()">
 
 
 
-
 </div>
-
-
-
-
-
-
-
-</div>
-
 
 
 
 `;
-
 
 
 
@@ -2015,13 +1936,6 @@ batchDashboard.innerHTML = html;
 
 
 }
-
-
-
-
-
-
-
 
 // =====================================================
 // DOWNLOAD CSV
@@ -2039,15 +1953,25 @@ window.location.href =
 
 }
 
+function openDashboard(){
 
+    window.location.href =
+    "/dashboard";
+
+}
+
+
+function goHome(){
+
+    window.location.href =
+    "/";
+
+}
 
 
 </script>
 
-
-
-
-
+<script src="/static/js/script.js"></script>
 </body>
 
 
