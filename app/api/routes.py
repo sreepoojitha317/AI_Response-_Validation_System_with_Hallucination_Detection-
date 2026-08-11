@@ -416,32 +416,25 @@ def download_batch_results():
 # ==========================================================
 # pdf generation manual 
 # ==========================================================
+
 @router.get("/dashboard/pdf", response_class=HTMLResponse)
 async def dashboard_pdf(request: Request):
 
     dashboard = load_dashboard_data()
 
-
     if dashboard is None:
-
         raise HTTPException(
             status_code=404,
             detail="No dashboard data available"
         )
 
-
     return templates.TemplateResponse(
-
-        "dashboard_pdf.html",
-
-        {
-            "request": request,
-
+        request=request,
+        name="dashboard_pdf.html",
+        context={
             "dashboard": dashboard
         }
-
     )
-
 # ==========================================================
 # Dashboard download
 # ==========================================================

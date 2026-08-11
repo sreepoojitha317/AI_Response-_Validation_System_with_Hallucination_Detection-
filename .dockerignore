@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+env/
+venv/
+.venv/
+
+# Git
+.git/
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+
+# Python cache / test cache
+.pytest_cache/
+.mypy_cache/
+
+# Uploaded/generated runtime files
+uploads/
+*.pdf
+
+
+# Local database / vector store
+chroma_db/
+chromadb/
+.chroma/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+
+# Documentation/build artifacts
+*.docx
+*.pptx
+*.zip
