@@ -18,9 +18,11 @@ The system uses a **RAG-based reference knowledge pipeline** and **multi-agent e
 It supports **single evaluation, batch evaluation, dashboard analytics, voice input, and PDF report generation**.
 # Important Note – Batch Evaluation
 For Batch Evaluation to work correctly, make sure the CSV file contains the exact column names shown below:
+
 question
 answer
 context
+
 The column names are case-sensitive. Please use lowercase letters exactly as specified.
 
 Using different column names such as Question, Answer, Context, q, a, or c will cause the Batch Evaluation to fail.
