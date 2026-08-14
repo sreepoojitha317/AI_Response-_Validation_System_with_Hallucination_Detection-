@@ -25,7 +25,7 @@ context
 
 The column names are case-sensitive. Please use lowercase letters exactly as specified.
 
-Using different column names such as Question, Answer, Context, q, a, or c will cause the Batch Evaluation to fail.
+Using different column names such as Question, Answer, Context, or anything will cause the Batch Evaluation to fail.
 ---
 
 ## Objectives
