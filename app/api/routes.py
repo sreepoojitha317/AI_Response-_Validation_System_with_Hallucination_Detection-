@@ -173,6 +173,18 @@ def evaluate(data: EvaluationRequest):
 
     except Exception as e:
 
+        print("\n" + "=" * 70)
+        print("❌ SINGLE EVALUATION ERROR")
+        print("=" * 70)
+
+        print("Error type:", type(e).__name__)
+        print("Error:", str(e))
+
+        import traceback
+        traceback.print_exc()
+
+        print("=" * 70)
+
         raise HTTPException(
             status_code=500,
             detail=str(e)
