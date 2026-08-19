@@ -1,5 +1,4 @@
 import json
-import re
 
 from app.evaluation.groq_eval import generate_response
 from app.evaluation.prompt_templates import build_prompt
@@ -16,7 +15,7 @@ Evaluate ONLY the completeness of the AI response.
 
 Determine whether the response covers all important information needed to answer the question.
 
-Scoring Rubric
+Scoring Rubric:
 
 10 = Completely answers the question.
 
@@ -32,30 +31,38 @@ Scoring Rubric
 
 0 = Does not answer the question.
 
-Rules
+Rules:
 
-• Evaluate ONLY completeness.
-• Ignore factual accuracy.
-• Ignore hallucinations.
-• Ignore grammar.
-• Ignore writing style.
-• Ignore relevance.
+- Evaluate ONLY completeness.
+- Ignore factual accuracy.
+- Ignore hallucinations.
+- Ignore grammar.
+- Ignore writing style.
+- Ignore relevance.
 
-• Use ONLY the supplied Reference Answer.
-• Do NOT use outside knowledge.
-• Do NOT invent missing points.
-• Mention omissions ONLY if they appear in the reference.
+- Use ONLY the supplied Reference Answer.
+- Do NOT use outside knowledge.
+- Do NOT invent missing points.
+- Mention omissions ONLY if they appear in the reference.
 
 If AI Response == Reference Answer,
 score MUST be 10.
 
-Return ONLY valid JSON.
+IMPORTANT:
+
+Return ONLY a valid JSON object.
+
+Do NOT write explanations outside JSON.
+Do NOT use markdown.
+Do NOT use ```json.
+
+Return exactly these fields:
 
 {
-    "score":0,
-    "reason":"...",
-    "evidence":"...",
-    "status":"PASS"
+    "score": 0,
+    "reason": "",
+    "evidence": "",
+    "status": "PASS"
 }
 """
 
@@ -75,41 +82,6 @@ Return ONLY valid JSON.
     try:
 
         response = response.strip()
-
-        # Remove markdown if present
-        if response.startswith("```"):
-            response = re.sub(r"^```(?:json)?", "", response)
-            response = response.replace("```", "").strip()
-
-        # Extract JSON
-        match = re.search(r"\{.*\}", response, re.DOTALL)
-
-        if match:
-            response = match.group()
-
-        # --------------------------------------------------
-        # Fix invalid JSON if model returns malformed output
-        # --------------------------------------------------
-
-        response = re.sub(
-            r'"reason"\s*:\s*([^"][^,]*),\s*"evidence"',
-            lambda m: '"reason": "' + m.group(1).strip().replace('"', '\\"') + '", "evidence"',
-            response,
-            flags=re.DOTALL,
-        )
-
-        response = re.sub(
-            r'"evidence"\s*:\s*([^"][^,]*),\s*"status"',
-            lambda m: '"evidence": "' + m.group(1).strip().replace('"', '\\"') + '", "status"',
-            response,
-            flags=re.DOTALL,
-        )
-
-        response = re.sub(
-            r'"status"\s*:\s*([A-Za-z]+)',
-            r'"status":"\1"',
-            response,
-        )
 
         result = json.loads(response)
 
@@ -170,8 +142,11 @@ if __name__ == "__main__":
 
         print(json.dumps(result, indent=4))
 
-        choice = input("\nEvaluate another response? (Y/N): ").strip().lower()
+        choice = input(
+            "\nEvaluate another response? (Y/N): "
+        ).strip().lower()
 
         if choice != "y":
+
             print("\nExiting Completeness Agent...")
             break

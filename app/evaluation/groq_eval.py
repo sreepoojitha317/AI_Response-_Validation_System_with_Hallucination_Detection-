@@ -3,14 +3,17 @@ import os
 from groq import Groq
 from dotenv import load_dotenv
 
+
 load_dotenv()
+
 
 client = Groq(
     api_key=os.getenv("GROQ_API_KEY")
 )
 
+
 print("=" * 60)
-print("Groq Llama 3.3 Model Loaded Successfully!")
+print("Groq GPT-OSS-120B Model Loaded Successfully!")
 print("=" * 60)
 
 
@@ -18,7 +21,7 @@ def generate_response(prompt: str):
 
     response = client.chat.completions.create(
 
-        model="llama-3.3-70b-versatile",
+        model="openai/gpt-oss-120b",
 
         messages=[
             {
@@ -27,8 +30,12 @@ def generate_response(prompt: str):
             }
         ],
 
-        temperature=0
+        temperature=0,
 
+        # Force Groq to return valid JSON
+        response_format={
+            "type": "json_object"
+        }
     )
 
     return response.choices[0].message.content

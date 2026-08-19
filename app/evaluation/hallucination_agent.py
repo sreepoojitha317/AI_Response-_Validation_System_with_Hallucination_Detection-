@@ -1,5 +1,4 @@
 import json
-import re
 
 from app.evaluation.groq_eval import generate_response
 from app.evaluation.prompt_templates import build_prompt
@@ -39,37 +38,35 @@ Scoring Rubric:
 
 Evaluation Rules:
 
-• Evaluate ONLY hallucinations.
-• Ignore grammar.
-• Ignore completeness.
-• Ignore writing style.
-• Ignore relevance.
-• Ignore whether the answer is long or short.
-• Penalize only unsupported or invented facts.
-• Give 10 only when every important statement is supported.
-• Give 0 only when almost everything is fabricated.
-• If the AI response matches the reference answer exactly, the hallucination score MUST be 10.
-• If every claim in the AI response is supported by the reference, the score MUST be 10.
-• Give a score of 0 ONLY when the response is almost entirely fabricated or unsupported.
-• Ensure that the score is consistent with the reason.
+- Evaluate ONLY hallucinations.
+- Ignore grammar.
+- Ignore completeness.
+- Ignore writing style.
+- Ignore relevance.
+- Ignore whether the answer is long or short.
+- Penalize only unsupported or invented facts.
+- Give 10 only when every important statement is supported.
+- Give 0 only when almost everything is fabricated.
+- If the AI response matches the reference answer exactly, the hallucination score MUST be 10.
+- If every claim in the AI response is supported by the reference, the score MUST be 10.
+- Give a score of 0 ONLY when the response is almost entirely fabricated or unsupported.
+- Ensure that the score is consistent with the reason.
 
 IMPORTANT:
 
-Return ONLY valid JSON.
+Return ONLY a valid JSON object.
 
+Do NOT write explanations outside JSON.
 Do NOT use markdown.
-
 Do NOT use ```json.
 
-Do NOT write any explanation outside JSON.
-
-Expected format:
+Return exactly these fields:
 
 {
-    "score": <0-10>,
-    "reason": "<brief explanation>",
-    "evidence": "<unsupported or supported statements>",
-    "status": "<PASS or FAIL>"
+    "score": 0,
+    "reason": "",
+    "evidence": "",
+    "status": ""
 }
 """
 
@@ -86,22 +83,13 @@ Expected format:
 
         response = response.strip()
 
-        if response.startswith("```"):
-            response = re.sub(r"^```(?:json)?", "", response)
-            response = response.replace("```", "").strip()
-
-        match = re.search(r"\{.*\}", response, re.DOTALL)
-
-        if match:
-            response = match.group()
-
         result = json.loads(response)
 
-    except Exception:
+    except Exception as e:
 
         result = {
             "score": None,
-            "reason": "Unable to parse Groq response.",
+            "reason": f"Unable to parse Groq response. ({e})",
             "evidence": response,
             "status": "ERROR"
         }
@@ -125,7 +113,9 @@ if __name__ == "__main__":
 
         ai_response = input("\nAI Response: ")
 
-        reference = input("\nRetrieved Context / Reference: ")
+        reference = input(
+            "\nRetrieved Context / Reference: "
+        )
 
         result = evaluate_hallucination(
             question,
@@ -139,8 +129,11 @@ if __name__ == "__main__":
 
         print(json.dumps(result, indent=4))
 
-        choice = input("\nEvaluate another response? (Y/N): ").strip().lower()
+        choice = input(
+            "\nEvaluate another response? (Y/N): "
+        ).strip().lower()
 
         if choice != "y":
+
             print("\nExiting Hallucination Agent...")
             break

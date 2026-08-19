@@ -1,5 +1,4 @@
 import json
-import re
 
 from app.evaluation.groq_eval import generate_response
 from app.evaluation.prompt_templates import build_prompt
@@ -37,24 +36,24 @@ Scoring Rubric:
 
 Evaluation Rules:
 
-• Evaluate ONLY factual accuracy.
-• Ignore grammar and writing style.
-• Ignore completeness.
-• Ignore relevance.
-• Penalize factual mistakes according to their severity.
-• Use intermediate scores (2-9) whenever appropriate.
-• Give 10 ONLY if every important fact is correct.
-• Give 0 ONLY if the response is completely wrong or contradicts the reference.
+- Evaluate ONLY factual accuracy.
+- Ignore grammar and writing style.
+- Ignore completeness.
+- Ignore relevance.
+- Penalize factual mistakes according to their severity.
+- Use intermediate scores (2-9) whenever appropriate.
+- Give 10 ONLY if every important fact is correct.
+- Give 0 ONLY if the response is completely wrong or contradicts the reference.
 
 IMPORTANT:
 
-Return ONLY valid JSON.
+Return ONLY a valid JSON object.
 
 Do NOT write explanations outside JSON.
-
 Do NOT use markdown.
+Do NOT use ```json.
 
-Return EXACTLY this format:
+Return exactly these fields:
 
 {
     "score": 0,
@@ -73,26 +72,17 @@ Return EXACTLY this format:
 
     response = generate_response(prompt)
 
-    # Uncomment while debugging if needed
-    # print("\n========== RAW GROQ RESPONSE ==========")
-    # print(response)
-    # print("=======================================\n")
-
     try:
 
-        # Extract JSON even if Groq adds extra text
-        match = re.search(r"\{.*\}", response, re.DOTALL)
+        response = response.strip()
 
-        if match:
-            result = json.loads(match.group())
-        else:
-            raise ValueError("JSON not found")
+        result = json.loads(response)
 
-    except Exception:
+    except Exception as e:
 
         result = {
             "score": None,
-            "reason": "Unable to parse Groq response.",
+            "reason": f"Unable to parse Groq response. ({e})",
             "evidence": response,
             "status": "ERROR"
         }
@@ -130,8 +120,11 @@ if __name__ == "__main__":
 
         print(json.dumps(result, indent=4))
 
-        choice = input("\nEvaluate another response? (Y/N): ").strip().lower()
+        choice = input(
+            "\nEvaluate another response? (Y/N): "
+        ).strip().lower()
 
         if choice != "y":
+
             print("\nExiting Accuracy Agent...")
             break
